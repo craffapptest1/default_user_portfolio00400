@@ -9,9 +9,10 @@ import {
   PasswordResetConfirmData,
   UserUpdateData,
 } from "@/types";
+import { getRuntimeEnv } from "@/lib/getRuntimeEnv";
 
 const API_URL =
-  process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api/v1";
+  getRuntimeEnv("NEXT_PUBLIC_API_URL") || "http://localhost:8000/v1";
 
 class ApiClient {
   private async request<T>(
