@@ -11,8 +11,22 @@ import {
 } from "@/types";
 import { getRuntimeEnv } from "@/lib/getRuntimeEnv";
 
-const API_URL =
-  getRuntimeEnv("NEXT_PUBLIC_API_URL") || "http://localhost:8000/v1";
+let rawUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+
+if (
+  !rawUrl.startsWith("http://localhost") &&
+  !rawUrl.startsWith("https://localhost")
+) {
+  if (!rawUrl.startsWith("http://") && !rawUrl.startsWith("https://")) {
+    rawUrl = `https://${rawUrl}`;
+  }
+
+  if (!rawUrl.endsWith("/v1")) {
+    rawUrl = rawUrl.replace(/\/+$/, "") + "/v1";
+  }
+}
+
+const API_URL = rawUrl;
 
 class ApiClient {
   private async request<T>(
