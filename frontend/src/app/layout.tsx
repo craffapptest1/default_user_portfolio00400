@@ -26,6 +26,7 @@ export default function RootLayout({
           <Header />
           <main className="flex-grow py-8">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <script src="/runtime-env.js" suppressHydrationWarning />
               {children}
             </div>
           </main>
